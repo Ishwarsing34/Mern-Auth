@@ -1,40 +1,37 @@
-import dns from 'dns'
-
-dns.setServers([
-    "8.8.8.8",
-    "8.8.4.4",
-    "1.1.1.1"
-]);
-
-
-
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import cookieParser from "cookie-parser";
-import connectDB from './config/db.js';
-import authRouter from './routes/authRoutes.js';
-import userRouter from './routes/userRoutes.js';
+import connectDB from "./config/db.js";
+import authRouter from "./routes/authRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
 const app = express();
 
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://mern-auth-xv8l.vercel.app"
+    ],
+    credentials: true,
+  })
+);
 
-const allowedOrigins = ['http://localhost:5173' , ' https://mern-auth-xv8l.vercel.app/']
+
+app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ 
-    origin:allowedOrigins,
-    credentials: true }));
 
-app.get('/', (req,res)=>{
-    res.send("server is live BROO" )
-})
+app.get("/", (req, res) => {
+  res.send("Server is live 🚀");
+});
 
-app.use('/api/auth', authRouter)
-app.use('/api/user', userRouter)
-
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 connectDB();
 
 
+export default app;
