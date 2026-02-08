@@ -17,7 +17,7 @@ import authRouter from './routes/authRoutes.js';
 import userRouter from './routes/userRoutes.js';
 
 const app = express();
-const port = process.env.PORT || 4000;
+
 
 const allowedOrigins = ['http://localhost:5173' , ' https://mern-auth-xv8l.vercel.app/']
 
@@ -37,6 +37,4 @@ app.use('/api/user', userRouter)
 
 connectDB();
 
-app.listen(port, () =>
-  console.log(`Server started on PORT:${port}`)
-);
+
