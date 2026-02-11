@@ -42,4 +42,8 @@ app.use("/api/user", userRouter);
 
 
 
+export default App;
+
+
+
 
