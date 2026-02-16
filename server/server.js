@@ -13,6 +13,8 @@ import cookieParser from "cookie-parser";
 
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import connectDB from "./config/db.js";
+
 
 const app = express();
 
@@ -28,6 +30,9 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+
+connectDB();
+
 
 app.get("/", (req, res) => {
   res.send("Server is live 🚀");
