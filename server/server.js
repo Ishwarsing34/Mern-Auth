@@ -1,11 +1,10 @@
-import dns from 'dns'
+import dns from "dns";
 
 dns.setServers([
-    "8.8.8.8",
-    "8.8.4.4",
-    "1.1.1.1"
+  "8.8.8.8",
+  "8.8.4.4",
+  "1.1.1.1",
 ]);
-
 
 import express from "express";
 import cors from "cors";
@@ -21,14 +20,11 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://mern-auth-xv8l.vercel.app"
+      "https://mern-auth-xv8l.vercel.app",
     ],
     credentials: true,
   })
 );
-
-
-app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());
@@ -40,10 +36,9 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 
+// 404 fallback (SAFE VERSION)
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
 
-
-export default App;
-
-
-
-
+export default app;
